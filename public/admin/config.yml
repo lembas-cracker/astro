@@ -1,33 +1,28 @@
-local_backend:
-  url: http://localhost:8082/api/v1
+local_backend: true
+
 backend:
   name: git-gateway
 
 media_folder: "public/images/uploads"
 
-# Public URL for media (important for image previews in CMS)
-public_folder: "/images/uploads" # Path served in the browser
+public_folder: "/images/uploads"
 
 collections:
-  - name: "blog" # Matches your Astro collection name
+  - name: "blog"
     label: "Blog Posts"
-    folder: "src/blog" # Where markdown files are stored
+    folder: "src/blog"
     create: true
-    slug: "{{slug}}" # Filename, e.g., `my-post.md`
+    slug: "{{slug}}"
     fields:
-      # Required fields (matches your schema)
       - { name: "title", label: "Title", widget: "string" }
       - { name: "pubDate", label: "Publish Date", widget: "datetime", format: "YYYY-MM-DD" }
       - { name: "description", label: "Description", widget: "text" }
       - { name: "author", label: "Author", widget: "string" }
-      # Image field (matches `image: { url, alt }` in schema)
       - label: "Featured Image"
         name: "image"
         widget: "object"
         fields:
           - { name: "url", label: "Image URL", widget: "image" }
           - { name: "alt", label: "Alt Text", widget: "string" }
-      # Tags (array of strings)
       - { name: "tags", label: "Tags", widget: "list", default: ["general"] }
-      # Body (markdown content with image support)
       - { name: "body", label: "Post Body", widget: "markdown" }
